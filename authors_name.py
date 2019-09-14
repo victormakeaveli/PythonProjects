@@ -1,3 +1,4 @@
+## simple program to identify a name and return it like an author's name ##
 z = ['junior', 'filho', 'filha', 'sobrinho', 'sobrinha', 'neto', 'neta']
 
 
