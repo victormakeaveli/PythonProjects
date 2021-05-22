@@ -1,81 +1,97 @@
-def rac1():
+# A happy number is a number which the sum of its square root is equal to 1. 
+# The simplest example is the number 10. 
+# 10² = 100
+# 1² + 0² + 0² = 1, happy
+
+# Another example is the number 7.
+# 7² = 49
+# 4² + 9² = 97
+# 9² + 7² = 130
+# 1² + 3² + 0² = 10
+# 1² + 0² = 1, happy
+
+# I created a function that takes n numbers and it checks if it fits a happy number or not. No biggie at all. At the time I developed some kind of "save" that stores every result, so everytime the stored number appears, it triggers the previous result preventing the cpu to do the same math over and over.
+
+def sad():
+
     positive_results = []
     negative_results = []
-    happy = []
-    sad = []
-    global inp_num
+    happy_numbers = []
+    sad_numbers = []
+
+    global inp_number
     global its
 
-    for inp_num in range(0, 3001):
-
-        if inp_num in range(0, 10):
-            ed = [int(i) for i in str(inp_num)]
-        else:
-            ed = [int(i) for i in str(inp_num**2)]
-
+    for inp_number in range(1, 33): # ¹ #
+        # this variable makes the desired number to-be-tested, a list, so I can iterate over the number.
+        number = [int(i) for i in str(inp_number)]
+        # check is a variable which, self-explanatorily, checks, if it arrived at the target result, I had to define it here out of the loop so the loop itself could work.
         check = 0
+        # counter
         counter = 0
 
         while check != 1:
 
             counter += 1
+            # it goes like this: if the length of the list-number to-be-tested is equal to N then the appropriate logic its applied(I couldn't think of any other better way to do this)
+            if len(number) == 1:
+                # check is now the result of the math behind it all
+                check = (number[0] ** 2)
+                # some output
+                print(f'[1] Checking {inp_number} > {number[0]}² = {check}')
 
-            if len(ed) == 1:
-                check = (ed[0] ** 2)
-                print(f'[1] Checking {inp_num} > {ed[0]}² = {check}')
+            elif len(number) == 2:
+                check = (number[0] ** 2) + (number[1] ** 2)
+                print(f'[2] Checking {inp_number} > {number[0]}² + {number[1]}² = {check}')
 
-            elif len(ed) == 2:
-                check = (ed[0] ** 2) + (ed[1] ** 2)
-                print(f'[2] Checking {inp_num} > {ed[0]}² + {ed[1]}² = {check}')
+            elif len(number) == 3:
+                check = (number[0] ** 2) + (number[1] ** 2) + (number[2] ** 2)
+                print(f'[3] Checking {inp_number} > {number[0]}² + {number[1]}² + {number[2]}² = {check}')
 
-            elif len(ed) == 3:
-                check = (ed[0] ** 2) + (ed[1] ** 2) + (ed[2] ** 2)
-                print(f'[3] Checking {inp_num} > {ed[0]}² + {ed[1]}² + {ed[2]}² = {check}')
+            elif len(number) == 4:
+                check = (number[0] ** 2) + (number[1] ** 2) + (number[2] ** 2) + (number[3] ** 2)
+                print(f'[4] Checking {inp_number} > {number[0]}² + {number[1]}² + {number[2]}² + {number[3]} = {check}')
 
-            elif len(ed) == 4:
-                check = (ed[0] ** 2) + (ed[1] ** 2) + (ed[2] ** 2) + (ed[3] ** 2)
-                print(f'[4] Checking {inp_num} > {ed[0]}² + {ed[1]}² + {ed[2]}² + {ed[3]} = {check}')
-
-            elif len(ed) == 5:
-                check = (ed[0] ** 2) + (ed[1] ** 2) + (ed[2] ** 2) + (ed[3] ** 2) + (ed[4] ** 2)
-                print(f'[5] Checking {inp_num} > {ed[0]}² + {ed[1]}² + {ed[2]}² + {ed[3]}² + {ed[4]}² = {check}')
-
-            elif len(ed) == 6:
-                check = (ed[0] ** 2) + (ed[1] ** 2) + (ed[2] ** 2) + (ed[3] ** 2) + (ed[4] ** 2) + (ed[5] ** 2)
-                print(f'[6] Checking {inp_num} > {ed[0]}² + {ed[1]}² + {ed[2]}² + {ed[3]}² + {ed[4]}² + {ed[5]}² = {check}')
-
-            elif len(ed) == 7:
-                check = (ed[0] ** 2) + (ed[1] ** 2) + (ed[2] ** 2) + (ed[3] ** 2) + (ed[4] ** 2) + (ed[5] ** 2) + (ed[6] ** 2)
-                print(f'[7] Checking {inp_num} > {ed[0]}² + {ed[1]}² + {ed[2]}² + {ed[3]}² + {ed[4]}² + {ed[5]}² + {ed[6]}² = {check}')
+            elif len(number) == 5:
+                check = (number[0] ** 2) + (number[1] ** 2) + (number[2] ** 2) + (number[3] ** 2) + (number[4] ** 2)
+                print(f'[5] Checking {inp_number} > {number[0]}² + {number[1]}² + {number[2]}² + {number[3]}² + {number[4]}² = {check}')
 
             else:
                 print('error')
+            # for the code to work properly I had to redefine the variable holding the result, not every number has its result defined on the first loop.
+            number = [int(i) for i in str(check)]
 
-            ed = [int(i) for i in str(check)]
-
+            # now, my Rembrandt 
+            # before storing the result, it sees if its already there, in the positive results, the ones that passed.
             if check in positive_results:
                 its = True
                 break
-
+            # it gets trickier here, if the code is here then it means the result is not in the positive results, now it checks if its not in the negative results, which firstly(at the beginning of the numbers to-be-tested FOR loop¹) every number will not be. Then it checks if the check variable is at the target result so it can move on, otherwise the check variable will be appended to the negative_results list, doing the purpose of this whole statement.
             if check not in negative_results:
-                if check == 1:
+                if check == 1: # ² #
                     pass
                 else:
                     negative_results.append(check)
                     continue
-
+            # if the above is appended to the negative_results list, it means the number is not happy, therefore:
             else:
+                # it gets stated so.
                 its = False
-                sad.append(inp_num)
+                # appended to the designated list
+                sad_numbers.append(inp_number)
+                # and breaking the loop
                 break
+            # if the ², then it gets stated so. (the final 'check', per say)
             its = True
-
+        # the final check is stated, now it is appended respectively
         if its:
-            happy.append(inp_num)
-            print(f'{inp_num} is happy')
+            happy_numbers.append(inp_number)
+            print(f'{inp_number} is happy')
             print()
-
+            # all cool and nice but the result has to go somewhere, so
+            # if its already here it means its a happy number, now it needs to be appended to the positive_results, removing it from the negative ones, for that, it checks beforehand if the number is already on both lists.
             while counter != 1:
+                # this counter variable being used to make sense, that the code had run at the loop first
                 counter -= 1
 
                 if any(i in negative_results for i in positive_results):
@@ -86,14 +102,16 @@ def rac1():
             continue
 
         else:
-            print(f'{inp_num} is sad')
+            print(f'{inp_number} is sad')
             print()
 
-    print(f'Happy {len(happy)} => {happy}')
-    print(f'Sad {len(sad)} => {sad}')
-    print('-'*250)
+    # some output
+    print('-'*200)
+    print(f'Happy {len(happy_numbers)} => {happy_numbers}')
+    print(f'Sad {len(sad_numbers)} => {sad_numbers}')
+    print('-'*200)
     print(f'Positive Results {len(positive_results)} => {sorted(positive_results)}')
     print(f'Negative Results {len(negative_results)} => {sorted(negative_results)}')
+    print('-'*200)
 
-
-rac1()
+sad()
