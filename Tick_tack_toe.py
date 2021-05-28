@@ -5,7 +5,6 @@
 
 from random import shuffle
 
-#references
 turn = True
 board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 possibility = [x for x in range(1,10)]
@@ -24,7 +23,6 @@ def game():
     in_game = True
 
     while in_game:
-
         if len(possibility) == 0:
             print('game over')
             in_game = False
@@ -40,7 +38,6 @@ def game():
             turn = True
  
         display()
-        #in_game = play_choice()
 
 def play_choice():
     """
@@ -55,8 +52,8 @@ def play_choice():
 
     elif choice == 'n':
         return False
-    
-    else:         #simpler validation 
+
+    else:         # heheh
         play_choice()
 
 def positioning():
@@ -64,38 +61,29 @@ def positioning():
     This function takes the user position choice, validate and return it to be assigned on the display func.
     """
     global board 
+ 
+    tap = None
+    # print('\n'*3)
+    print(" "*15, 'please tap a tile on the numpad')
 
-    tap = ' '
-    acc_range = range(1,10)
-    within_range = False
-
-    while within_range == False:                                  #While the users input isnt valid
-                                                                  #it will keep looping
-        
-        print(" "*15, 'please tap a tile on the numpad')
+    while tap != int and tap not in possibility:
         tap = int(input(' '*34))
-        print('\n'*3)
+        if tap not in possibility: 
+            print(" "*15, 'position already used')
 
-        if tap in acc_range: #With a valid digit input,
-                                    #convert it to an integer and
-            within_range = True                                 #validate the range
+    if board[tap] == ' ':                         # If the location selected on the board its an empty string (an empty space, a valid location),
+        board.pop(tap)                            # pop the given position on the board removing the empty cell
+        board.insert(tap, 'X')                    # insert 'X' on the location selected at the board
+        possibility.remove(tap)                   # and update the possibility 
+        return board, possibility                             
 
-            if board[tap] == ' ' and tap in possibility:  #if its an empty string.
-                board.pop(tap)                            #Pop the given position on the board
-                board.insert(tap, 'X')                    #Insert it on the board
-                possibility.remove(tap)
-                #possibility.pop(tap)
-                return board, possibility
-            else: continue                                
-
-        else:
-            tap = ' '
-            print(" "*15, 'the numpad, bro ')
-            continue
+    else:
+        print(" "*15, 'insert a number')
+        
 
 def display():
     """
-    This function prints the "board" in the screen...
+    This function prints the board...
     """
     global board
 
@@ -110,7 +98,7 @@ def display():
 
 def computer_logic():
     """
-    This function "simulates a computer" position choice, without being smart (yet).
+    This function randomly selects a position, doing the opponent.
     """
     global board
     global possibility
@@ -134,4 +122,3 @@ def computer_logic():
     return board, possibility
 
 game()
-

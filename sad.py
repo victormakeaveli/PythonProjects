@@ -58,7 +58,7 @@ def sad():
 
             else:
                 print('error')
-            # for the code to work properly I had to redefine the variable holding the result, not every number has its result defined on the first loop.
+            # for the code to work properly I have to redefine the variable holding the result, not every number has its result defined on the first loop.
             number = [int(i) for i in str(check)]
 
             # now, my Rembrandt 
@@ -66,7 +66,7 @@ def sad():
             if check in positive_results:
                 its = True
                 break
-            # it gets trickier here, if the code is here then it means the result is not in the positive results, now it checks if its not in the negative results, which firstly(at the beginning of the numbers to-be-tested FOR loop¹) every number will not be. Then it checks if the check variable is at the target result so it can move on, otherwise the check variable will be appended to the negative_results list, doing the purpose of this whole statement.
+            # it gets trickier here. If the code is here then it means the result is not in the positive results, now it checks if its not in the negative results, which firstly(at the beginning of the numbers to-be-tested FOR loop¹) every number will not be. Then it checks if the check variable is at the target result so it can move on, otherwise the check variable will be appended to the negative_results list, doing the purpose of this whole statement.
             if check not in negative_results:
                 if check == 1: # ² #
                     pass
@@ -79,7 +79,7 @@ def sad():
                 its = False
                 # appended to the designated list
                 sad_numbers.append(inp_number)
-                # and breaking the loop
+                # and break the loop
                 break
             # if the ², then it gets stated so. (the final 'check', per say)
             its = True
@@ -91,16 +91,16 @@ def sad():
             # all cool and nice but the result has to go somewhere, so
             # if its already here it means its a happy number, now it needs to be appended to the positive_results, removing it from the negative ones, for that, it checks beforehand if the number is already on both lists.
             while counter != 1:
-                # this counter variable being used to make sense, that the code had run at the loop first
+                # this counter variable being used to make sure that the code had run at the loop first, otherwise it doesn't need to be stored
                 counter -= 1
-
+                # if there's already an i stored then skip it
                 if any(i in negative_results for i in positive_results):
                     pass
-                else:
+                else: # otherwise it does it's thing
                     positive_results.append(negative_results[-1])
                 negative_results.pop()
             continue
-
+        
         else:
             print(f'{inp_number} is sad')
             print()

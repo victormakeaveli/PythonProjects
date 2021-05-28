@@ -1,26 +1,26 @@
-## simple program to identify a name and return it like an author's name ##
+# simple program to identify a name and return it like an author's name
 
-words = ['junior', 'filho', 'filha', 'neto', 'neta'] # so here i defined some possible agnomes that could be in the end
-                                                     # of the given name, and then give it preference with the first condition
-                                                     # e.g input = João Silva Neto | output = SILVA NETO, João.
+words = ['junior', 'filho', 'neto'] # 
 
 def org(name):
-    name_list = name.split() # i splited the name into a list so i can iterate between words using index 
-    if any(i in words for i in name_list): # if any word 'i' in the list 'words' is in the 'name_list' which i just splitted exists, then
-        org_name = name_list[-2].upper() + ' ', name_list[-1].upper() + ', ', name_list[0].capitalize() # it will rearrange the name adding the 'word' next to the last name, then the first name.
-        final_org_name = ''.join(org_name) #here i created a variable containing the rearragend and formated name so i can
-        return final_org_name # return it
-    
-    elif len(name_list) == 1: # now if the input name is a single cell 
-        org_name = name_list[1].capitalize() # just capitalize it and return
-        final_org_name = ''.join(org_name)
-        return final_org_name
-    
-    else: # if theres no words from the words list, return it author's name like
-        org_name = name_list[-1].upper() + ', ', name_list[0].capitalize()
-        final_org_name = ''.join(org_name)
-        return final_org_name
+    full_name = name.split() # 
 
+    if any(i in words for i in full_name): # 
+        agnome = str([a for a in words if a in full_name])
+        if full_name[-1] == agnome:
+            if len (full_name) > 2:
+                org_name = full_name[-2] + ', ', agnome.upper() + ', ', full_name[0].capitalize() #
+            else:
+                return TypeError
+        else:
+            return TypeError
+    
+    else:
+        org_name = full_name[-1].upper() + ', ', full_name[0].capitalize()
 
+    final_org_name = ''.join(org_name)
+    return final_org_name
+
+# some output
 name = input(str())
 print('Autor: {}'.format(org(name)))
